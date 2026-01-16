@@ -1,26 +1,20 @@
-import { apiClient } from './api/apiClient';
-import { mockDataService } from './mockDataService';
-import { apiConfig } from './api/apiConfig';
-import { CalculationInput, CalculationResult, CalculationHistory } from '@/types/calculation.types';
+import { CalculationHistory,CalculationInput, CalculationResult } from "@/types/calculation.types";
+
+import { apiClient } from "./api/apiClient";
 
 export const calculationService = {
   async calculate(input: CalculationInput): Promise<CalculationResult> {
-    // Use mock data if enabled
-    if (apiConfig.enableMockData) {
-      return mockDataService.calculate(input);
-    }
+    const response = await apiClient.post<CalculationResult>("/calculations", input);
+    return response.data;
+  },
 
-    const response = await apiClient.post<CalculationResult>('/calculations', input);
+  async calculateV2(input: CalculationInput): Promise<CalculationResult> {
+    const response = await apiClient.post<CalculationResult>("/calculations/v2", input);
     return response.data;
   },
 
   async getHistory(): Promise<CalculationHistory[]> {
-    // Use mock data if enabled
-    if (apiConfig.enableMockData) {
-      return mockDataService.getCalculationHistory();
-    }
-
-    const response = await apiClient.get<CalculationHistory[]>('/calculations/history');
+    const response = await apiClient.get<CalculationHistory[]>("/calculations/history");
     return response.data;
   },
 
@@ -29,7 +23,7 @@ export const calculationService = {
     result: CalculationResult,
     name?: string
   ): Promise<CalculationHistory> {
-    const response = await apiClient.post<CalculationHistory>('/calculations/save', {
+    const response = await apiClient.post<CalculationHistory>("/calculations/save", {
       input,
       result,
       name,

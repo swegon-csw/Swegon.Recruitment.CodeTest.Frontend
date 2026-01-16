@@ -1,55 +1,37 @@
-import { apiClient } from './api/apiClient';
-import { mockDataService } from './mockDataService';
-import { apiConfig } from './api/apiConfig';
-import { Product, ProductDetail, FilterOptions } from '@/types/product.types';
-import { PaginatedResponse } from '@/types/common.types';
+import { FilterOptions,Product, ProductDetail } from "@/types/product.types";
+
+import { apiClient } from "./api/apiClient";
 
 export const productService = {
-  async getProducts(
-    filters: FilterOptions,
-    page: number = 1,
-    pageSize: number = 20
-  ): Promise<PaginatedResponse<Product>> {
-    // Use mock data if enabled
-    if (apiConfig.enableMockData) {
-      return mockDataService.getProducts(filters, page, pageSize);
-    }
-
+  async getProducts(filters: FilterOptions): Promise<Product[]> {
     const params = new URLSearchParams({
       search: filters.search,
       category: filters.category,
       sortBy: filters.sortBy,
-      sortDirection: filters.sortDirection || 'asc',
-      page: page.toString(),
-      pageSize: pageSize.toString(),
+      sortDirection: filters.sortDirection || "asc",
     });
 
     if (filters.minPrice !== undefined) {
-      params.append('minPrice', filters.minPrice.toString());
+      params.append("minPrice", filters.minPrice.toString());
     }
     if (filters.maxPrice !== undefined) {
-      params.append('maxPrice', filters.maxPrice.toString());
+      params.append("maxPrice", filters.maxPrice.toString());
     }
     if (filters.inStockOnly) {
-      params.append('inStockOnly', 'true');
+      params.append("inStockOnly", "true");
     }
 
-    const response = await apiClient.get<PaginatedResponse<Product>>(`/products?${params}`);
+    const response = await apiClient.get<Product[]>(`/products?${params}`);
     return response.data;
   },
 
   async getProductById(id: string): Promise<ProductDetail> {
-    // Use mock data if enabled
-    if (apiConfig.enableMockData) {
-      return mockDataService.getProductById(id);
-    }
-
     const response = await apiClient.get<ProductDetail>(`/products/${id}`);
     return response.data;
   },
 
-  async createProduct(product: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>): Promise<Product> {
-    const response = await apiClient.post<Product>('/products', product);
+  async createProduct(product: Omit<Product, "id" | "createdAt" | "updatedAt">): Promise<Product> {
+    const response = await apiClient.post<Product>("/products", product);
     return response.data;
   },
 

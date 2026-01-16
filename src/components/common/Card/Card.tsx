@@ -1,35 +1,10 @@
-import { ReactNode } from 'react';
-import classNames from 'classnames';
-import styles from './Card.module.css';
+import { StyledCard } from "./Card.styled";
+import { CardProps } from "./Card.types";
 
-interface CardProps {
-  children: ReactNode;
-  variant?: 'default' | 'outlined' | 'elevated';
-  padding?: 'none' | 'small' | 'medium' | 'large';
-  className?: string;
-  onClick?: () => void;
-}
-
-export default function Card({
-  children,
-  variant = 'default',
-  padding = 'medium',
-  className,
-  onClick,
-}: CardProps) {
-  const cardClasses = classNames(
-    styles.card,
-    styles[variant],
-    styles[`padding-${padding}`],
-    {
-      [styles.clickable]: onClick,
-    },
-    className
-  );
-
+export default function Card({ children, variant = "default", padding = "medium", onClick }: CardProps) {
   return (
-    <div className={cardClasses} onClick={onClick}>
+    <StyledCard $variant={variant} $padding={padding} $clickable={!!onClick} onClick={onClick}>
       {children}
-    </div>
+    </StyledCard>
   );
 }

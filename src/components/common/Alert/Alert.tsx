@@ -1,23 +1,15 @@
-import { ReactNode } from 'react';
-import classNames from 'classnames';
-import styles from './Alert.module.css';
+import { AlertContainer, CloseButton,Content } from "./Alert.styled";
+import { AlertProps } from "./Alert.types";
 
-interface AlertProps {
-  type?: 'success' | 'error' | 'warning' | 'info';
-  children: ReactNode;
-  onClose?: () => void;
-  className?: string;
-}
-
-export default function Alert({ type = 'info', children, onClose, className }: AlertProps) {
+export default function Alert({ type = "info", children, onClose }: AlertProps) {
   return (
-    <div className={classNames(styles.alert, styles[type], className)} role="alert">
-      <div className={styles.content}>{children}</div>
+    <AlertContainer $type={type} role="alert">
+      <Content>{children}</Content>
       {onClose && (
-        <button className={styles.closeButton} onClick={onClose} aria-label="Close alert">
+        <CloseButton onClick={onClose} aria-label="Close alert">
           ×
-        </button>
+        </CloseButton>
       )}
-    </div>
+    </AlertContainer>
   );
 }

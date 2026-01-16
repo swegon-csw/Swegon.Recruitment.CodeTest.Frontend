@@ -31,11 +31,8 @@
       "@/types/*": ["src/types/*"],
       "@/utils/*": ["src/utils/*"],
       "@/context/*": ["src/context/*"],
-      "@/router/*": ["src/router/*"],
-      "@/styles/*": ["src/styles/*"],
       "@/assets/*": ["src/assets/*"]
     }
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src"]
 }

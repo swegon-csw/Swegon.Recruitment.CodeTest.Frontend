@@ -1,4 +1,3 @@
-// Product-related types
 export interface Product {
   id: string;
   name: string;
@@ -31,8 +30,8 @@ export interface ProductSpecification {
 export interface FilterOptions {
   search: string;
   category: string;
-  sortBy: 'name' | 'price' | 'rating' | 'createdAt';
-  sortDirection?: 'asc' | 'desc';
+  sortBy: "name" | "price" | "rating" | "createdAt";
+  sortDirection?: "asc" | "desc";
   minPrice?: number;
   maxPrice?: number;
   inStockOnly?: boolean;

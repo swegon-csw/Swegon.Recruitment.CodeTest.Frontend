@@ -1,9 +1,8 @@
-// Calculation-related types
 export interface CalculationInput {
   area: number;
   height: number;
   occupancy: number;
-  activityLevel: 'low' | 'medium' | 'high';
+  activityLevel: "low" | "medium" | "high";
   temperature: number;
   humidity: number;
 }

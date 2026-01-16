@@ -1,14 +1,12 @@
-import { AxiosError } from 'axios';
-import { ApiError } from '@/types/api.types';
+import { AxiosError } from "axios";
 
-/**
- * Transform Axios error to application error format
- */
+import { ApiError } from "@/types/common.types";
+
 export function transformApiError(error: unknown): ApiError {
   if (error instanceof AxiosError) {
     return {
-      message: error.response?.data?.message || error.message || 'An error occurred',
-      code: error.code || 'UNKNOWN_ERROR',
+      message: error.response?.data?.message || error.message || "An error occurred",
+      code: error.code || "UNKNOWN_ERROR",
       status: error.response?.status || 500,
     };
   }
@@ -16,14 +14,14 @@ export function transformApiError(error: unknown): ApiError {
   if (error instanceof Error) {
     return {
       message: error.message,
-      code: 'UNKNOWN_ERROR',
+      code: "UNKNOWN_ERROR",
       status: 500,
     };
   }
 
   return {
-    message: 'An unknown error occurred',
-    code: 'UNKNOWN_ERROR',
+    message: "An unknown error occurred",
+    code: "UNKNOWN_ERROR",
     status: 500,
   };
 }

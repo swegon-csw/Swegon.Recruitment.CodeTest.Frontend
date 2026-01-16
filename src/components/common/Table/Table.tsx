@@ -1,56 +1,36 @@
-import { ReactNode } from 'react';
-import classNames from 'classnames';
-import styles from './Table.module.css';
-
-interface Column<T> {
-  key: string;
-  header: string;
-  render?: (item: T) => ReactNode;
-}
-
-interface TableProps<T> {
-  data: T[];
-  columns: Column<T>[];
-  keyExtractor: (item: T) => string;
-  className?: string;
-  emptyMessage?: string;
-}
+import { EmptyMessage,StyledTable, TableContainer, Tbody, Td, Th, Thead, Tr } from "./Table.styled";
+import { TableProps } from "./Table.types";
 
 export default function Table<T extends Record<string, unknown>>({
   data,
   columns,
   keyExtractor,
-  className,
-  emptyMessage = 'No data available',
+  emptyMessage = "No data available",
 }: TableProps<T>) {
   if (data.length === 0) {
-    return <div className={styles.empty}>{emptyMessage}</div>;
+    return <EmptyMessage>{emptyMessage}</EmptyMessage>;
   }
 
   return (
-    <div className={classNames(styles.tableContainer, className)}>
-      <table className={styles.table}>
-        <thead className={styles.thead}>
+    <TableContainer>
+      <StyledTable>
+        <Thead>
           <tr>
             {columns.map((column) => (
-              <th key={column.key} className={styles.th}>
-                {column.header}
-              </th>
+              <Th key={column.key}>{column.header}</Th>
             ))}
           </tr>
-        </thead>
-        <tbody className={styles.tbody}>
+        </Thead>
+        <Tbody>
           {data.map((item) => (
-            <tr key={keyExtractor(item)} className={styles.tr}>
+            <Tr key={keyExtractor(item)}>
               {columns.map((column) => (
-                <td key={column.key} className={styles.td}>
-                  {column.render ? column.render(item) : String(item[column.key])}
-                </td>
+                <Td key={column.key}>{column.render ? column.render(item) : String(item[column.key])}</Td>
               ))}
-            </tr>
+            </Tr>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </Tbody>
+      </StyledTable>
+    </TableContainer>
   );
 }

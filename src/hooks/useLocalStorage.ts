@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
-import { getFromLocalStorage, setInLocalStorage } from '@/utils/storage/localStorage';
+import { useEffect,useState } from "react";
 
-/**
- * Hook to manage state synchronized with localStorage
- */
+import { getFromLocalStorage, setInLocalStorage } from "@/utils/storage/localStorage";
+
 export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
     const item = getFromLocalStorage<T>(key);

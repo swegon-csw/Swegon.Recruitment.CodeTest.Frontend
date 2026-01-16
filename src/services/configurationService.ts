@@ -1,4 +1,4 @@
-import { apiClient } from './api/apiClient';
+import { apiClient } from "./api/apiClient";
 
 export interface Configuration {
   id: string;
@@ -19,7 +19,7 @@ export const configurationService = {
   },
 
   async getAllConfigurations(): Promise<Configuration[]> {
-    const response = await apiClient.get<Configuration[]>('/configurations');
+    const response = await apiClient.get<Configuration[]>("/configurations");
     return response.data;
   },
 };

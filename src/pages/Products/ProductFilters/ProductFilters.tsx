@@ -1,43 +1,9 @@
-import styled from 'styled-components';
-import { FilterOptions } from '@/types/product.types';
-import { PRODUCT_CATEGORIES } from '@/utils/constants';
-import Input from '@/components/common/Input/Input';
-import Dropdown from '@/components/common/Dropdown/Dropdown';
+import Dropdown from "@/components/common/Dropdown/Dropdown";
+import Input from "@/components/common/Input/Input";
+import { FilterOptions } from "@/types/product.types";
+import { PRODUCT_CATEGORIES } from "@/utils/constants";
 
-const FiltersContainer = styled.aside`
-  background-color: ${({ theme }) => theme.colors.cardBackground};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.large};
-  padding: ${({ theme }) => theme.spacing.xl};
-  height: fit-content;
-  position: sticky;
-  top: 100px;
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    position: static;
-  }
-`;
-
-const FilterTitle = styled.h3`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  color: ${({ theme }) => theme.colors.heading};
-`;
-
-const FilterGroup = styled.div`
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-const FilterLabel = styled.label`
-  display: block;
-  font-weight: 600;
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 0.875rem;
-`;
+import { FilterGroup, FilterLabel,FiltersContainer, FilterTitle } from "./ProductFilters.styled";
 
 interface ProductFiltersProps {
   filters: FilterOptions;
@@ -54,7 +20,7 @@ export default function ProductFilters({ filters, onFilterChange }: ProductFilte
   };
 
   const handleSortChange = (value: string) => {
-    onFilterChange({ ...filters, sortBy: value as FilterOptions['sortBy'] });
+    onFilterChange({ ...filters, sortBy: value as FilterOptions["sortBy"] });
   };
 
   return (
@@ -68,7 +34,7 @@ export default function ProductFilters({ filters, onFilterChange }: ProductFilte
           type="text"
           placeholder="Search products..."
           value={filters.search}
-          onChange={e => handleSearchChange(e.target.value)}
+          onChange={(e) => handleSearchChange(e.target.value)}
         />
       </FilterGroup>
 
@@ -77,8 +43,8 @@ export default function ProductFilters({ filters, onFilterChange }: ProductFilte
         <Dropdown
           id="category"
           value={filters.category}
-          onChange={e => handleCategoryChange(e.target.value)}
-          options={PRODUCT_CATEGORIES.map(cat => ({
+          onChange={(e) => handleCategoryChange(e.target.value)}
+          options={PRODUCT_CATEGORIES.map((cat) => ({
             value: cat,
             label: cat.charAt(0).toUpperCase() + cat.slice(1),
           }))}
@@ -90,11 +56,11 @@ export default function ProductFilters({ filters, onFilterChange }: ProductFilte
         <Dropdown
           id="sortBy"
           value={filters.sortBy}
-          onChange={e => handleSortChange(e.target.value)}
+          onChange={(e) => handleSortChange(e.target.value)}
           options={[
-            { value: 'name', label: 'Name' },
-            { value: 'price', label: 'Price' },
-            { value: 'date', label: 'Date Added' },
+            { value: "name", label: "Name" },
+            { value: "price", label: "Price" },
+            { value: "date", label: "Date Added" },
           ]}
         />
       </FilterGroup>

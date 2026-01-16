@@ -1,20 +1,6 @@
-import styles from './Spinner.module.css';
-import classNames from 'classnames';
+import { StyledSpinner } from "./Spinner.styled";
+import { SpinnerProps } from "./Spinner.types";
 
-interface SpinnerProps {
-  size?: 'small' | 'medium' | 'large';
-  color?: 'primary' | 'white';
-  className?: string;
-}
-
-export default function Spinner({ size = 'medium', color = 'primary', className }: SpinnerProps) {
-  return (
-    <div
-      className={classNames(styles.spinner, styles[size], styles[color], className)}
-      role="status"
-      aria-label="Loading"
-    >
-      <span className="sr-only">Loading...</span>
-    </div>
-  );
+export default function Spinner({ size = "medium", color = "primary" }: SpinnerProps) {
+  return <StyledSpinner $size={size} $color={color} role="status" aria-label="Loading"></StyledSpinner>;
 }

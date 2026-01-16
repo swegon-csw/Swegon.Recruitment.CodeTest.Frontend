@@ -1,84 +1,72 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import { CalculationInput, CalculationFormData } from '@/types/calculation.types';
-import Button from '@/components/common/Button/Button';
-import Input from '@/components/common/Input/Input';
-import Dropdown from '@/components/common/Dropdown/Dropdown';
-import { FiCalculator } from 'react-icons/fi';
+import { useState } from "react";
 
-const FormCard = styled.div`
-  background-color: ${({ theme }) => theme.colors.cardBackground};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.large};
-  padding: ${({ theme }) => theme.spacing.xl};
-  height: fit-content;
-  position: sticky;
-  top: 100px;
-`;
+import Button from "@/components/common/Button/Button";
+import Dropdown from "@/components/common/Dropdown/Dropdown";
+import Input from "@/components/common/Input/Input";
+import { CalculationInput } from "@/types/calculation.types";
 
-const FormTitle = styled.h2`
-  font-size: 1.5rem;
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  color: ${({ theme }) => theme.colors.heading};
-`;
+import { Form, FormCard, FormGroup, FormTitle, HelpText, Label } from "./CalculatorForm.styled";
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg};
-`;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
-`;
-
-const Label = styled.label`
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text};
-  font-size: 0.875rem;
-`;
-
-const HelpText = styled.span`
-  font-size: 0.75rem;
-  color: ${({ theme }) => theme.colors.textLight};
-`;
+interface FormData {
+  roomArea: string;
+  roomHeight: string;
+  occupants: string;
+  activityLevel: string;
+  outdoorTemperature: string;
+  targetTemperature: string;
+  humidity: string;
+}
 
 interface CalculatorFormProps {
   onCalculate: (input: CalculationInput) => void;
+  onCalculateV2: (input: CalculationInput) => void;
   loading: boolean;
 }
 
-export default function CalculatorForm({ onCalculate, loading }: CalculatorFormProps) {
-  const [formData, setFormData] = useState<CalculationFormData>({
-    roomArea: '',
-    roomHeight: '',
-    occupants: '',
-    activityLevel: 'medium',
-    outdoorTemperature: '',
-    targetTemperature: '',
-    humidity: '',
+export default function CalculatorForm({ onCalculate, onCalculateV2, loading }: CalculatorFormProps) {
+  const [formData, setFormData] = useState<FormData>({
+    roomArea: "50",
+    roomHeight: "2.6",
+    occupants: "10",
+    activityLevel: "medium",
+    outdoorTemperature: "25",
+    targetTemperature: "21",
+    humidity: "50",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const input: CalculationInput = {
-      roomArea: parseFloat(formData.roomArea),
-      roomHeight: parseFloat(formData.roomHeight),
-      occupants: parseInt(formData.occupants),
-      activityLevel: formData.activityLevel,
-      outdoorTemperature: parseFloat(formData.outdoorTemperature),
-      targetTemperature: parseFloat(formData.targetTemperature),
-      humidity: formData.humidity ? parseFloat(formData.humidity) : undefined,
+      area: parseFloat(formData.roomArea),
+      height: parseFloat(formData.roomHeight),
+      occupancy: parseInt(formData.occupants),
+      activityLevel: formData.activityLevel as "low" | "medium" | "high",
+      temperature: parseFloat(formData.outdoorTemperature),
+      humidity: parseFloat(formData.humidity || "50"),
     };
 
     onCalculate(input);
   };
 
-  const handleChange = (field: keyof CalculationFormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  // @ts-expect-error - Keeping for future use
+  const handleSubmitV2 = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const input: CalculationInput = {
+      area: parseFloat(formData.roomArea),
+      height: parseFloat(formData.roomHeight),
+      occupancy: parseInt(formData.occupants),
+      activityLevel: formData.activityLevel as "low" | "medium" | "high",
+      temperature: parseFloat(formData.outdoorTemperature),
+      humidity: parseFloat(formData.humidity || "50"),
+    };
+
+    onCalculateV2(input);
+  };
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -92,7 +80,7 @@ export default function CalculatorForm({ onCalculate, loading }: CalculatorFormP
             type="number"
             step="0.1"
             value={formData.roomArea}
-            onChange={e => handleChange('roomArea', e.target.value)}
+            onChange={(e) => handleChange("roomArea", e.target.value)}
             required
           />
           <HelpText>Enter the total floor area of the room</HelpText>
@@ -105,7 +93,7 @@ export default function CalculatorForm({ onCalculate, loading }: CalculatorFormP
             type="number"
             step="0.1"
             value={formData.roomHeight}
-            onChange={e => handleChange('roomHeight', e.target.value)}
+            onChange={(e) => handleChange("roomHeight", e.target.value)}
             required
           />
           <HelpText>Standard ceiling height is 2.4-2.7m</HelpText>
@@ -117,7 +105,7 @@ export default function CalculatorForm({ onCalculate, loading }: CalculatorFormP
             id="occupants"
             type="number"
             value={formData.occupants}
-            onChange={e => handleChange('occupants', e.target.value)}
+            onChange={(e) => handleChange("occupants", e.target.value)}
             required
           />
         </FormGroup>
@@ -127,13 +115,11 @@ export default function CalculatorForm({ onCalculate, loading }: CalculatorFormP
           <Dropdown
             id="activityLevel"
             value={formData.activityLevel}
-            onChange={e =>
-              handleChange('activityLevel', e.target.value as CalculationFormData['activityLevel'])
-            }
+            onChange={(e) => handleChange("activityLevel", e.target.value)}
             options={[
-              { value: 'low', label: 'Low (Office, Library)' },
-              { value: 'medium', label: 'Medium (Retail, Classroom)' },
-              { value: 'high', label: 'High (Gym, Workshop)' },
+              { value: "low", label: "Low (Office, Library)" },
+              { value: "medium", label: "Medium (Retail, Classroom)" },
+              { value: "high", label: "High (Gym, Workshop)" },
             ]}
           />
         </FormGroup>
@@ -145,7 +131,7 @@ export default function CalculatorForm({ onCalculate, loading }: CalculatorFormP
             type="number"
             step="0.1"
             value={formData.outdoorTemperature}
-            onChange={e => handleChange('outdoorTemperature', e.target.value)}
+            onChange={(e) => handleChange("outdoorTemperature", e.target.value)}
             required
           />
         </FormGroup>
@@ -157,7 +143,7 @@ export default function CalculatorForm({ onCalculate, loading }: CalculatorFormP
             type="number"
             step="0.1"
             value={formData.targetTemperature}
-            onChange={e => handleChange('targetTemperature', e.target.value)}
+            onChange={(e) => handleChange("targetTemperature", e.target.value)}
             required
           />
           <HelpText>Comfortable range is typically 20-22°C</HelpText>
@@ -172,14 +158,28 @@ export default function CalculatorForm({ onCalculate, loading }: CalculatorFormP
             min="0"
             max="100"
             value={formData.humidity}
-            onChange={e => handleChange('humidity', e.target.value)}
+            onChange={(e) => handleChange("humidity", e.target.value)}
           />
           <HelpText>Optional: Ideal range is 40-60%</HelpText>
         </FormGroup>
 
-        <Button type="submit" size="large" fullWidth loading={loading}>
-          <FiCalculator /> Calculate
-        </Button>
+        <div style={{ display: "flex", gap: "12px", marginTop: "8px" }}>
+          <Button type="submit" size="large" fullWidth loading={loading}>
+            Calculate
+          </Button>
+          {/* <Button
+            type="button"
+            size="large"
+            fullWidth
+            loading={loading}
+            variant="secondary"
+            onClick={(event) => {
+              handleSubmitV2(event);
+            }}
+          >
+            Calculate V2
+          </Button> */}
+        </div>
       </Form>
     </FormCard>
   );

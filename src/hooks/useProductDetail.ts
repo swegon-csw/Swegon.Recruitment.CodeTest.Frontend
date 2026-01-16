@@ -1,28 +1,31 @@
-import { useState, useEffect } from 'react';
-import { productService } from '@/services/productService';
-import { ProductDetail } from '@/types/product.types';
-import { LoadingState } from '@/types/common.types';
-import { transformApiError } from '@/services/api/apiInterceptors';
+import { useEffect, useState } from "react";
+
+import { transformApiError } from "@/services/api/apiInterceptors";
+import { productService } from "@/services/productService";
+import { LoadingState } from "@/types/common.types";
+import { ProductDetail } from "@/types/product.types";
 
 export function useProductDetail(id: string | undefined) {
   const [product, setProduct] = useState<ProductDetail | null>(null);
-  const [loading, setLoading] = useState<LoadingState>('idle');
+  const [loading, setLoading] = useState<LoadingState>("idle");
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) {
+      return;
+    }
 
     const fetchProduct = async () => {
       try {
-        setLoading('loading');
+        setLoading("loading");
         setError(null);
         const result = await productService.getProductById(id);
         setProduct(result);
-        setLoading('success');
+        setLoading("success");
       } catch (err) {
         const apiError = transformApiError(err);
         setError(apiError.message);
-        setLoading('error');
+        setLoading("error");
       }
     };
 
@@ -31,9 +34,9 @@ export function useProductDetail(id: string | undefined) {
 
   return {
     product,
-    loading: loading === 'loading',
+    loading: loading === "loading",
     error,
-    isSuccess: loading === 'success',
-    isError: loading === 'error',
+    isSuccess: loading === "success",
+    isError: loading === "error",
   };
 }

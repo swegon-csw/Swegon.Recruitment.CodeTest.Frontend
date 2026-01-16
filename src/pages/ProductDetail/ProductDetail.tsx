@@ -1,45 +1,19 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { useProductDetail } from '@/hooks/useProductDetail';
-import ProductInfo from './ProductInfo/ProductInfo';
-import ProductSpecs from './ProductSpecs/ProductSpecs';
-import Spinner from '@/components/common/Spinner/Spinner';
-import Alert from '@/components/common/Alert/Alert';
-import Button from '@/components/common/Button/Button';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft } from "react-icons/fi";
+import { useNavigate,useParams } from "react-router-dom";
 
-const DetailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.xl};
-`;
+import Alert from "@/components/common/Alert/Alert";
+import Button from "@/components/common/Button/Button";
+import Spinner from "@/components/common/Spinner/Spinner";
+import { useProductDetail } from "@/hooks/useProductDetail";
 
-const BackButton = styled(Button)`
-  align-self: flex-start;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
-const ContentGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: ${({ theme }) => theme.spacing.xxl};
-  
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const LoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 400px;
-`;
+import { BackButton, ContentGrid, DetailContainer, LoadingContainer } from "./ProductDetail.styled";
+import ProductInfo from "./ProductInfo/ProductInfo";
+import ProductSpecs from "./ProductSpecs/ProductSpecs";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { product, loading, error } = useProductDetail(id || '');
+  const { product, loading, error } = useProductDetail(id || "");
 
   if (loading) {
     return (
@@ -52,8 +26,8 @@ export default function ProductDetail() {
   if (error || !product) {
     return (
       <div>
-        <Alert type="error">{error || 'Product not found'}</Alert>
-        <Button onClick={() => navigate('/products')} style={{ marginTop: '1rem' }}>
+        <Alert type="error">{error || "Product not found"}</Alert>
+        <Button onClick={() => navigate("/products")} style={{ marginTop: "1rem" }}>
           <FiArrowLeft /> Back to Products
         </Button>
       </div>
@@ -62,7 +36,7 @@ export default function ProductDetail() {
 
   return (
     <DetailContainer>
-      <BackButton variant="outline" onClick={() => navigate('/products')}>
+      <BackButton variant="outline" onClick={() => navigate("/products")}>
         <FiArrowLeft /> Back to Products
       </BackButton>
 
