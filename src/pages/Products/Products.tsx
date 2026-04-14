@@ -7,7 +7,7 @@ import { FilterOptions } from "@/types/product.types";
 
 import ProductFilters from "./ProductFilters/ProductFilters";
 import ProductList from "./ProductList/ProductList";
-import { ContentWrapper, LoadingContainer,PageDescription, PageTitle, ProductsContainer } from "./Products.styled";
+import { ContentWrapper, LoadingContainer, PageDescription, PageTitle, ProductsContainer } from "./Products.styled";
 
 export default function Products() {
   const [filters, setFilters] = useState<FilterOptions>({

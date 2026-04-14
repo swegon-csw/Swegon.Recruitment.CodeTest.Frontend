@@ -1,4 +1,4 @@
-import { CalculationHistory,CalculationInput, CalculationResult } from "@/types/calculation.types";
+import { CalculationHistory, CalculationInput, CalculationResult } from "@/types/calculation.types";
 
 import { apiClient } from "./api/apiClient";
 

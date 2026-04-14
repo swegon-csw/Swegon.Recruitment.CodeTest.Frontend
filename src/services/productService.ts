@@ -1,4 +1,4 @@
-import { FilterOptions,Product, ProductDetail } from "@/types/product.types";
+import { FilterOptions, Product, ProductDetail } from "@/types/product.types";
 
 import { apiClient } from "./api/apiClient";
 

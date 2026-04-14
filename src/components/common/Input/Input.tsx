@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import { Container, ErrorText, HelperText,Label, Required, StyledInput } from "./Input.styled";
+import { Container, ErrorText, HelperText, Label, Required, StyledInput } from "./Input.styled";
 import { InputProps } from "./Input.types";
 
 const Input = forwardRef<HTMLInputElement, InputProps>(

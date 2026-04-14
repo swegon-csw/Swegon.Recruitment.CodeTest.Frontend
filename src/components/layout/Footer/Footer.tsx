@@ -1,6 +1,6 @@
 import { APP_NAME, APP_VERSION } from "@/utils/constants";
 
-import { Copyright, FooterContainer, FooterContent, Links,Version } from "./Footer.styled";
+import { Copyright, FooterContainer, FooterContent, Links, Version } from "./Footer.styled";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

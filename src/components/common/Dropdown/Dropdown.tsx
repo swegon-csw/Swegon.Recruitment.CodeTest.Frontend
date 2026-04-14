@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import { Container, ErrorText, HelperText,Label, Required, StyledSelect } from "./Dropdown.styled";
+import { Container, ErrorText, HelperText, Label, Required, StyledSelect } from "./Dropdown.styled";
 import { DropdownProps } from "./Dropdown.types";
 
 const Dropdown = forwardRef<HTMLSelectElement, DropdownProps>(

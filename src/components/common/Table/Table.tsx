@@ -1,4 +1,4 @@
-import { EmptyMessage,StyledTable, TableContainer, Tbody, Td, Th, Thead, Tr } from "./Table.styled";
+import { EmptyMessage, StyledTable, TableContainer, Tbody, Td, Th, Thead, Tr } from "./Table.styled";
 import { TableProps } from "./Table.types";
 
 export default function Table<T extends Record<string, unknown>>({

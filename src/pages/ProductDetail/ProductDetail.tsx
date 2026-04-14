@@ -1,5 +1,5 @@
 import { FiArrowLeft } from "react-icons/fi";
-import { useNavigate,useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Alert from "@/components/common/Alert/Alert";
 import Button from "@/components/common/Button/Button";

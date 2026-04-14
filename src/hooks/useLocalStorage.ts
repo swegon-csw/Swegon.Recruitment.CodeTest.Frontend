@@ -1,4 +1,4 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getFromLocalStorage, setInLocalStorage } from "@/utils/storage/localStorage";
 

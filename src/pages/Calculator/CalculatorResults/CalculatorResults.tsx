@@ -1,4 +1,4 @@
-import { FiDollarSign,FiThermometer, FiWind, FiZap } from "react-icons/fi";
+import { FiDollarSign, FiThermometer, FiWind, FiZap } from "react-icons/fi";
 
 import { CalculationResult } from "@/types/calculation.types";
 import { formatCurrency } from "@/utils/formatting/currencyFormatter";

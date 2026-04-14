@@ -1,4 +1,4 @@
-import { AlertContainer, CloseButton,Content } from "./Alert.styled";
+import { AlertContainer, CloseButton, Content } from "./Alert.styled";
 import { AlertProps } from "./Alert.types";
 
 export default function Alert({ type = "info", children, onClose }: AlertProps) {

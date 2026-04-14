@@ -1,4 +1,4 @@
-import { Spinner,StyledButton } from "./Button.styled";
+import { Spinner, StyledButton } from "./Button.styled";
 import { ButtonProps } from "./Button.types";
 
 export default function Button({

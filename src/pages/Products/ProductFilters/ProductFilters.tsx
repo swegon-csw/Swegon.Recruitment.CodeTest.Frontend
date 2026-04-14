@@ -3,7 +3,7 @@ import Input from "@/components/common/Input/Input";
 import { FilterOptions } from "@/types/product.types";
 import { PRODUCT_CATEGORIES } from "@/utils/constants";
 
-import { FilterGroup, FilterLabel,FiltersContainer, FilterTitle } from "./ProductFilters.styled";
+import { FilterGroup, FilterLabel, FiltersContainer, FilterTitle } from "./ProductFilters.styled";
 
 interface ProductFiltersProps {
   filters: FilterOptions;

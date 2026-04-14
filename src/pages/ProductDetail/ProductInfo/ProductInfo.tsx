@@ -1,4 +1,4 @@
-import { FiHeart,FiShoppingCart } from "react-icons/fi";
+import { FiHeart, FiShoppingCart } from "react-icons/fi";
 
 import Button from "@/components/common/Button/Button";
 import { ProductDetail } from "@/types/product.types";

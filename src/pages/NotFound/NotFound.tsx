@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import Button from "@/components/common/Button/Button";
 
-import { ErrorCode, ErrorDescription,ErrorTitle, NotFoundContainer } from "./NotFound.styled";
+import { ErrorCode, ErrorDescription, ErrorTitle, NotFoundContainer } from "./NotFound.styled";
 
 export default function NotFound() {
   return (

@@ -1,4 +1,4 @@
-import { BarElement, CategoryScale, Chart as ChartJS, Legend,LinearScale, Title, Tooltip } from "chart.js";
+import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
 import { ChartData } from "@/types/calculation.types";

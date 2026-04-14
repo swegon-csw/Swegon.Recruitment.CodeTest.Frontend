@@ -1,4 +1,4 @@
-import { FiActivity,FiHome, FiPackage } from "react-icons/fi";
+import { FiActivity, FiHome, FiPackage } from "react-icons/fi";
 
 import { ROUTES } from "@/utils/constants";
 
